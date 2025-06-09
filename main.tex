@@ -1,0 +1,1475 @@
+% arara: xelatex
+% arara: bibtex
+% arara: xelatex
+% arara: xelatex
+
+
+% Pattern Languages of Programs Conference 2023 October 22-25, 2023
+
+% Original timeline:
+
+% June 2         Shepherding begins
+%% - We'll know if we have a shepherd
+% June 30        Deadline focus group / workshop proposals
+% August 7       Second draft due for review
+% August 15      Notification of acceptance
+% September 18   Conference versions due
+% October 1      Conference registration ends
+% October 22     Patterns Bootcamp
+% October 23-25  PLoP Conference Days
+
+%% <-- WE’RE HERE NOW
+
+% January 29, 2024 Proceeding version due
+
+% Created 2021-11-16 Tue 16:22
+% Intended LaTeX compiler: xelatex
+\RequirePackage[prologue,table,dvipsnames]{xcolor}
+\documentclass[acmlarge,timestamp]{acmart}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage[many]{tcolorbox}
+\usepackage{varwidth}
+\usepackage{environ}
+\usepackage{xparse}
+\usepackage{microtype}
+\usepackage{tikz}
+\usepackage{calc}
+
+%\usepackage[all]{xy}
+%\usepackage{rotating}
+
+\newlength{\somelengthA}
+\newlength{\somelengthB}
+\newlength{\somelengthC}
+
+\newcommand\clock[3]{%
+\begin{tikzpicture}[line cap=round,line width=3pt]
+\filldraw [fill=Goldenrod!20,thin] (0,0) circle (8cm);
+\draw [gray,thin] (0,0) circle (5.2cm);
+\draw [gray,thin] (0,0) circle (2.8cm);
+\draw [gray,thin] (0,0) circle (.42cm);
+\node (0,0) {\emoji{gem}};
+\foreach \angle / \label / \rotate in
+{%0/3, 30/2,
+  33/PAR→/-55,
+  % 60/1, 90/12, 120/11,
+  147/DPL→/55,
+  % 150/10, 180/9, 210/8, 240/7,
+  270/←CLA/0
+  % 300/5, 330/4
+}
+{
+\draw[line width=1pt] (\angle:8cm) -- (\angle:8.2cm);
+\draw (\angle:8.6cm) node[rotate=\rotate]{\textsf{\label}};
+}
+\foreach \angleA / \labelA in
+{%0/3, 30/2,
+  23/{Dérive Comix},
+  13/{Share Back},
+  % 60/1, 90/12, 120/11,
+  115/{Meaning Map},
+  124/{Components},
+  127/{Language},
+  130/{Pattern},
+  140/{Going Meta},
+  % 150/10, 180/9, 210/8, 240/7,
+  265/{Reinfuse},
+  262/{Expertise},
+  242/{Roles},
+  245/{Functional},
+  224/{Control},
+  227/{Participant},
+  230/{Increase}
+  % 300/5, 330/4
+}
+{
+\settowidth{\somelengthA}{\labelA}
+\draw (\angleA:6.6cm) node[rotate=\angleA,transform canvas={xshift=\somelengthA}]{\textsf{\labelA}};
+}
+% PART Bi
+\foreach \angleB / \labelB / \corr in
+{%0/3, 30/2,
+  -0/{Context}/0,
+  -4/{Setting}/-3,
+%  43/{Contested space},
+  % 60/1, 90/12, 120/11,
+  109/{Facilitator}/-2,
+  104/{Roles}/-7
+}
+{
+\settowidth{\somelengthB}{\labelB}
+\draw (\angleB:4cm) node[rotate=\angleB-\corr,transform canvas={xshift=\somelengthB}]{\textsf{\labelB}};
+}
+% PART Bii
+\foreach \angleB / \labelB / \corr in
+{%0/3, 30/2,
+  -13/{Time Traveler}/0,
+  -23/{Reflector}/0,
+%  43/{Contested space},
+  % 60/1, 90/12, 120/11,
+  85/{Linker}/0,
+  95/{Analyst}/0,
+%  177/{Funding of},
+%  182/{Public Space},
+  % 150/10, 180/9, 210/8, 240/7,
+  220/{Wrinkler}/0,
+  207/{Stepper}/0
+%  250/{Rebalance},
+%  245/{Social Services}
+  % 300/5, 330/4
+}
+{
+\settowidth{\somelengthB}{\labelB}
+\draw (\angleB:4cm) node[rotate=\angleB-\corr,transform canvas={xshift=\somelengthB}]{\bfseries\scshape{\labelB}};
+}
+% PART C
+\foreach \angleC / \labelC / \corr in
+{%0/3, 30/2,
+  -33/{Do Your}/0,
+  -45/{Research}/10,
+  % 60/1, 90/12, 120/11,
+  190/{Conversations}/0,
+  200/{Structure}/-10,
+  % 150/10, 180/9, 210/8, 240/7,
+  65/{Begins Now}/0,
+  80/{The Future}/-14
+  % 300/5, 330/4
+}
+{
+\settowidth{\somelengthC}{\labelC}
+\draw (\angleC:1.65cm) node[rotate=\angleC+\corr,transform canvas={xshift=\somelengthC}]{\textsf{\labelC}};
+}
+% \foreach \angle in {0,90,180,270}
+% \draw[line width=2pt] (\angle:1.6cm) -- (\angle:2cm);
+% \node[draw=none,font=\tiny,text=red] at (0,.9cm) {TICK-TOCK};
+% \draw[rotate=90,line width=2pt] (0,0) -- (-#1*30-#2*30/60:0.7cm); % hours
+% \draw[rotate=90,line width=1.5pt] (0,0) -- (-#2*6:1cm); % minutes
+% \draw[rotate=90,thin,red] (0,0) -- (-#3*6:1.2cm); % seconds
+% \path [fill=red] (0,0) circle (2pt);
+%
+\end{tikzpicture}%
+}
+
+%% Sometimes needed, sometimes not:
+% \newcommand\acmPrice[1]{}
+%%%
+
+\newfontfamily{\chess}[Color=red]{chess_merida_unicode.ttf}
+
+\usepackage{slantsc}
+
+\setcopyright{rightsretained}
+\copyrightyear{2023}
+\acmYear{2021}
+\acmDOI{10.XXXX/XXXXXXX.XXXXXXX}
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[PLoP'25]{PLoP'25: Pattern Languages of Programs 2025}{October 12--15, 2025}{HILLSIDE}
+\acmBooktitle{PLoP'25, OCTOBER 12--15, HILLSIDE. Copyright 2025 is held by the author(s)}
+\acmPrice{15.00}
+\acmISBN{978-1-4503-XXXX-X/18/06}
+
+%\usepackage[Latin,Greek,Emoticons]{ucharclasses}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+%\usepackage{amsmath}
+\usepackage{textcomp}
+%\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{fontspec}
+
+\usepackage{emoji}
+\setemojifont{Noto Color Emoji}
+%\usepackage{coloremoji}
+
+\usepackage{mdframed}
+\usepackage{afterpage}
+
+\usepackage{booktabs}
+
+\usepackage[inline]{enumitem}
+
+\usepackage[pagewise]{lineno}
+\renewcommand\thelinenumber{\color{red}\arabic{linenumber}}
+%\usepackage{xunicode}
+\usepackage{natbib}
+\usepackage{float}
+%\usepackage{xypic}
+\usepackage{tikz}
+\newcommand{\sensory}{(s)}
+\newcommand{\cognitive}{(c)}
+\newcommand{\motor}{(m)}
+\newcommand*\circlednum[1]{\resizebox{1em}{!}{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}}
+%\usepackage{amsmath, amssymb}
+\def\t{\scriptstyle\triangle}
+\def\T{\textstyle\blacktriangle}
+\usepackage{placeins}
+%\usepackage{starfont}
+% \newfontfamily{\alch}{Alchemy}
+%\newcommand{\Asclepius}{{\emoji\symbol{"2695}}}
+%\newcommand{\Caduceus}{{\emoji\symbol{"2624}}}
+\setmainfont{Libertinus Sans}
+\newfontfamily{\ser}{Libertinus Serif Italic}
+\newcommand{\candidate}[1]{{\ser \scitshape #1}}
+\usepackage{bold-extra}
+\DeclareRobustCommand{\scitshape}{\fontshape{\scitdefault}\selectfont}
+\newenvironment{echo}{}{}
+\usepackage{enotez}
+\renewcommand{\endnote}[1]{}
+\newcommand{\ignorelink}[2][]{#2}
+\newcommand{\markbf}[1]{\textsuperscript{\textbf{#1}}}
+\setenotez{counter-format = alph, mark-cs = \markbf}
+\DeclareInstance{enotez-list}{sverre}{paragraph}{heading={},notes-sep=\baselineskip,format=\normalsize\normalfont\raggedright\leftskip1.8em,number=\makebox[0pt][r]{#1.\ }\ignorespaces,}
+\usepackage{epigraph}
+\date{}
+\title{Patterns of Patterns III}
+\hypersetup{
+ pdfauthor={Joseph Corneli et al.},
+ pdftitle={Patterns of Patterns III},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.0.50 (Org mode 9.6.1)},
+ pdflang={English}}
+
+\citestyle{acmauthoryear}
+\let\cleardoublepage=\clearpage
+\begin{document}
+
+\input{title-stuff-sequel}
+
+%\clearpage
+
+% \tableofcontents
+\section{Introduction}\label{sec:intro}
+
+In an era of increasing global interconnectivity, effective
+collaboration across cultural, geographical, technical, and
+disciplinary boundaries is essential. Traditional methods often falter
+when addressing the intricate layers of context inherent in
+distributed collaboration.  To address these concerns, we have been
+exploring a re-theorisation of design patterns using the tools of
+social intelligence.  First introduced in our paper “Patterns of
+Patterns: A Methodological Reflection on the Future of Design Pattern
+Methods” (PoP), the PLACARD pattern was tested in five U.S. and
+U.K.~workshops as detailed in the sequel “Patterns of Patterns
+II”~(PoPII) \cite{10.5555/3712039.3712044,10.5555/3721041.3721050}.
+To support that work, PLACARD was elaborated into a design pattern
+language.  It has since been adapted to additional localized settings,
+engaging diverse participants in hybrid and in-person formats. These
+sessions leveraged PLACARD to bridge perspectives and envision future
+modes of collaboration in rapid prototyping sessions.  We have also
+been interested in how PLACARD can be used at a slower pace, and in
+distributed contexts--for example, to scaffold learning in a
+long-running seminar series, or even more widely, across different
+spheres of engagement that we have described in this series of papers.
+In this paper, we establish another use case, by using PLACARD
+patterns with virtual artificial intelligence (AI) agents.  We show
+that design pattern thinking is well-suited to use in developing
+epistemic AI, by which we understand artificial intelligence systems
+that model and manage uncertainty, provide explanations, engage in
+meta-cognition, and facilitate human-AI collaboration. By working
+between human and computer contexts, we are able to improve our
+understanding of the underlying patterns of knowledge acquisition,
+representation, and utilization.  Generative AI tools contributed in
+other ways to this paper, by
+\href{https://www.google.com/url?q=https://groups.google.com/g/peeragogy/c/XM7RKMDdcT4\&sa=D\&source=editors\&ust=1749305683239949\&usg=AOvVaw1GJKEDppYQy3WrqXEi9SV9}{helping us make the first draft} based on their analysis of the two
+initial papers in this series and our three summary reports. We then
+took the baton and revised the writing over many subsequent versions
+to arrive at the cohesive work you are now reading.
+
+\section{Patterns in Use}\label{sec:II}
+
+\subsection{Background}
+
+In its basic design pattern format, PLACARD combines three
+complementary approaches for collective learning and design.
+
+\begin{description}
+\item[PAR (Project Action Review)] -- A reflective process assessing
+  intentions, actions, and outcomes to learn from experience.
+\item[CLA (Causal Layered Analysis)] -- A futures studies technique
+  analyzing issues across multiple layers---the familiar litany of
+  well-known problems, the systems that underpin them, along with the
+  prevailing worldviews, and deeper myths that constitute the root
+  causes of these problems, along with the possibility of developing
+  alternative perspectives.
+\item[DPL (Design Pattern Language)] -- A framework for capturing and
+  sharing reusable solutions in a structured
+  Context-Problem-Solution~format (or similar), further structured by
+  links between such elements.
+\end{description}
+
+By combining these approaches, PLACARD enables teams to cycle
+through reflection, deep analysis, and pattern
+creation.  However, this is not necessarily a serial process or
+a fixed cycle.  For instance, the generation, use, and analysis
+patterns may be ongoing.  In our work a PAR is typically
+conducted after a period of work, to reflect on progress made,
+however it also serves as an intention-setting exercises might
+happen before the next phase begins.  The nominal function of a
+CLA is to analyze a situation, but just as often they are used
+to describe how that situation can change.
+
+The three papers in the series to date can be brought into schematic alignment with these methods.
+
+\medskip
+\begin{tabular}{lp{.7\textwidth}}
+(PoP $\approx$ CLA) &We used CLA to think about the pattern literature as a whole and to retheorise its workings.\\
+(PoPII $\approx$ DPL)& We elaborated PLACARD into a pattern language.\\
+(PoPIII $\approx$ PAR)& We take a deep look at how these patterns have been used in practice, and take stock of potential next steps in the overall trajectory of research.\\
+\end{tabular}
+
+\medskip
+
+Thinking about patterns in pattern-theoretic terms, we uncovered
+PLACARD’s modularity.  Methods that achieve the same function as one
+of its components can be swapped in and out, without undermining the
+integrity of the whole.  For example, PAR could be replaced with the
+US Army's After Action Review \cite{afteraction}---which inspired its
+basic format place---or by the Feedback Wheel devised by Janet Hurley
+\cite{real2008new}. CLA could be replaced by Triple-Loop Learning
+\cite{tosey2012origins} or Ecological Systems Theory
+\cite{bronfenbrenner-est}.  DPL could be replaced by Elinor Ostrom's
+institutions \cite{Ostrom_1990}, or by a catalogue of literary tropes,
+and so on.  Each such selection comes with its own ideological
+orientation, and typical domain of application.
+
+\subsection{Implementation}
+
+{We implemented PLACARD in multiple settings, tailoring our
+  approach to each context:}
+\medskip
+
+\begin{description}
+\item[AsianPLoP 2024 (Fujisawa, Japan)]{~-- Our “PLACARD Workshop”
+  \cite{Danoff2024} was a hybrid focus group with one onsite and two
+  remote facilitators (via Jitsi). Participants conducted
+  meta-analysis on the conference itself using CLA and DPL to uncover
+  underlying challenges, identify linguistic barriers and explore
+  growth opportunities. One challenge discussed was how to be more
+  inclusive of countries across the Asian continent. The conference
+  organizers took a positive step by holding the 2025 event in Taiwan,
+  but we cannot state that location decision was influenced by our
+  Focus Group. In 2024, onsite attendees helped overcome barriers by clarifying
+  for confused participants in Japanese. This was the only event in
+  this paper conducted in multiple languages.}{~A growth opportunity
+  discussed that learning and networking does not need to stop when
+  the conference itself ends. It can continue afterwards as attendees
+  cross-pollinate pattern design collectively. The PAR was then
+  applied to close the Focus Group and capture the results. During the
+  evening conference recap ceremony there was one summary delivered in
+  English by a paper author and another in Japanese by an attendee.}
+\item[EuroPLoP 2024 (Irsee, Germany)]{~-- A hybrid session titled “AI
+  Future Envisioning with PLACARD” \cite{Tedeschi2024} with one
+  onsite and three remote facilitators. Participants employed the
+  Transfeminist Tech Oracle card game as a creative prompt, then used
+  CLA and PAR in tandem to explore speculative AI futures. Due to time
+  constraints and abstraction load, some participants expressed
+  confusion about the method structure, prompting later pattern
+  refinement. A post-session PAR survey was used for reflection after
+  the event.}
+\item[PLoP 2024 (Washington, USA)]{~-- An in-person “Imagination Run
+  Wild” workshop, with three onsite facilitators. Participants were
+  invited to “Envision the Future of Collaboration” \cite{ayloo2024},
+  using the same card game and CLA.  Another post-session PAR survey
+  was used for reflection after the event.}
+\item[Experts Among Us 2025 (Keene, New Hampshire, USA)]{~- A stand-alone
+  meeting in-person that gave an opportunity to play the same card game
+  with one facilitator. In advance we practiced the card game and the
+  facilitator then preselected the cards for participants. Attendees
+  were not part of the patterns community. ~This session actually
+  facilitated a group discussion and demonstrated collaboration. We
+  learned that we had to explain the rules and definitions prior to
+  playing the game.}
+\end{description}
+% We plan to continue this
+
+{Across all sites, we prepped and did some facilitation via shared
+online tools and messaging, while recognizing the added value of having
+facilitators physically present to manage activities and engage
+participants. Each session contributed to the evolution of the PLACARD
+catalogue and to the emergence of new facilitation strategies,
+highlighting the importance of embodied interaction and real-time
+adaptability.}
+
+\subsection{Reflexive Analysis Using the PLACARD Pattern Catalogue}
+
+To analyze the workshops beyond surface-level outcomes, we applied a
+reflexive methodology grounded in the PLACARD pattern catalogue,
+presented in PoPII.  This catalogue is structured into three
+interlinked categories:
+
+\medskip
+\hspace{-.5cm}\begin{tabular}{ccc}
+\textbf{A.}~Identifying Themes (“sensory”)&
+\textbf{B.}~Organizing Structure (“cognitive”)&
+\textbf{C.}~Making It Actionable (“motor”)\\
+\end{tabular}
+
+\vspace{.2cm}
+For each workshop,~in this paper we use the
+\textbf{A}/\textbf{B}/\textbf{C} structure to retrospectively
+assess:
+
+\begin{itemize}
+\tightlist
+\item Which patterns were implicitly or explicitly activated,
+\item Where breakdowns in understanding or facilitation could be explained by missing or misapplied patterns, and
+\item Where new patterns could be introduced to resolve to unanticipated tensions.
+\end{itemize}
+
+A brief summary is given in Section \ref{sec:III} of this paper.  This
+reflexive approach helped us make sense of divergent workshop
+dynamics, and the possibility for further patterns that could help
+make the workshops more rewarding in general. ~For example, Name the
+Frame~was identified in hindsight as something that could have
+improved onboarding. Likewise, {\scshape {Harvest Before You
+    Close}}~was seen as a missing step in several sessions, and this
+pattern would address missed opportunities for extemporaneous pattern
+generation.
+
+Rather than enforcing a rigid rubric, the catalogue functioned as a
+scaffold for learning from variation. It allowed us to compare
+facilitation dynamics, participant responses, and methodological
+adaptations across sites---and, crucially, to refine the catalogue
+itself through lived experience.
+
+\subsection{Empirical and Design-Based Development of New Patterns}
+
+Across the 2024 and 2025 events, new patterns did not emerge fully
+formed.  Indeed, only one new pattern surfaced and named explicitly
+during the workshops:
+
+\begin{itemize}
+\tightlist
+\item[]
+  \scshape{Have Multiple Leaders Onsite}{~-- prompted by the hybrid setup at
+  EuroPLoP, where limited physical facilitation led to friction. The
+  pattern proposes distributed facilitation roles to support hybrid
+  presence, reduce coordination load, and maintain session energy.}
+\end{itemize}
+
+Other new proto patterns crystallized in our retrospective analysis.
+For example:
+
+\begin{itemize}
+\tightlist
+\item[]
+  {\scshape{Name the Frame}} -- (a further specification of
+  CONTEXT SETTING from PoPII) this pattern emerged from repeated
+  facilitator observations that participants struggled to orient
+  themselves without a clear method overview.
+\item[]
+  {\scshape{Borrow the Situation}} -- inferred from participant improvisation in choosing and reinterpreting prompts when predefined situations felt mismatched or abstract.
+\item[]
+  {\scshape{Start with Sense}} -- (generalizing {D\'ERIVE COMIX} from PoPII)
+    builds on the observation that embodied play or metaphorical
+    framing was often the key to unlocking participation
+\end{itemize}
+
+{In sum, while few patterns emerged as polished artifacts within the
+workshop frame, the pattern language itself evolved through encounter.
+The workshops provided empirical grounding for evaluating utility,
+exposing limits, and highlighting latent needs. This iterative,
+design-based process parallels how pattern languages grow in living
+communities---not through top-down invention, but through grounded,
+reflective refinement.}
+
+\subsection{Developing a comparison case: Working with patterns computationally}
+
+We noticed that it is possible to ask ChatGPT to run simple
+multi-agent ``virtual'' workshops.  These can be compared with the
+in-person workshops.  Below are two lightly edited example prompts
+that were used for setting up these simulations.
+
+\medskip
+
+\fbox{
+\begin{minipage}{.7\pagewidth}
+{Prompt 1 Given to Generative AI Program}
+
+{}
+
+{I want you to create a multi-agent system with 15 different
+  ChatGPT-based agents. ~I want you to assign each of them the name of
+  a distinct animal, and each of the agents will have some of the
+  typical characteristics of the animal it is named for. ~Then I want
+  you to walk through the 30 “Peeragogical Exercises for a Seminar on
+  Epistemic AI” [elided] in a virtual seminar. ~The
+  final exam is a dialogue between these animals, about the following
+  prompts. ~Please have as much discussion as you’d
+  like among the agents before you give me their final team
+  presentation answering the questions.}
+
+{}
+
+{What is epistemic AI?}
+
+{}
+
+{How does mathematics relate to this vision?}
+
+{}
+
+{What does `peeragogy' mean, and how does it relate to this vision?}
+
+{}
+
+{What kind of multi-agent has created this answer?}
+
+{}
+
+{Why is this virtual seminar of historical importance?}
+\end{minipage}}
+
+\fbox{
+\begin{minipage}{.7\pagewidth}
+  {Prompt 2 Given to Generative AI Program}
+
+  Remember how we did some simple multi-agent workshops before?  Let's
+  simulate the architecture described the paper with some
+  ChatGPT-based agents.  This time, rather than basing them on
+  animals, we are going to base the agents on a diverse group of
+  Research Fellows in AI.  Let's only consider 10 such agents.  Please
+  include the “Ant” role from the workshop with animals, she will
+  record what happens in which workshop session.  Please also include
+  the “Dog” role from the animal workshop, who will act as a primary
+  reporter.  The Fellows will be set the task of designing a series of
+  workshops using the PLACARD method and associated patterns, and the
+  outcome of the series should be a detailed plan of work for a
+  research project on epistemic AI.  You should do deep research to
+  make sure that the discussions are plausible.
+\end{minipage}}
+
+\medskip
+
+\section{Patterns as Technical, Epistemic, and Reflective Infrastructure}\label{sec:III}
+
+\subsection{Reframing Patterns as Sense-Making Scaffolds}
+
+Patterns are often described in instrumental terms: reusable solutions
+to recurring problems in context.  As we look into how they work, we
+see there’s more to it.  One aspect of this is the use-versus-mention
+distinction: clearly, a physical alcove is not the same as Christopher
+Alexander's “ALCOVES” pattern \cite{alexander1977a}.  And at both
+levels, there’s a degree of explicitness.  When does an indentation
+become an alcove?  When does a pattern become part of a language?
+
+The {\scshape{Start with Sense}} pattern characterizes various ways of
+inviting participants to begin inquiry with embodied, perceptual, or
+intuitive grounding. This creates conditions under which problems and
+possibilities become intelligible.
+
+Across the A/B/C catalogue, many patterns introduced earlier and from
+the Appendix operate similarly:
+
+\begin{itemize}
+\tightlist
+\item[]
+  {\scshape{Name the Frame}}~helps surface the underlying structure of an activity or method.
+\item[]
+  {\scshape{Borrow the Situation}}~allows participants to reinterpret or co-create the context of inquiry.
+\item[]
+  {\scshape{Meta-Reflection Loop}}~supports collective understanding of what just happened and why.
+\end{itemize}
+
+These are cognitive footholds, ways of managing ambiguity and
+distributing attention. They help groups compose a shared reality,
+especially when dealing with complex or unfamiliar material.
+
+From this perspective, the value of a pattern lies not just in its
+repeatability but in its sensitivity to situated meaning-making. A
+good pattern doesn't just say ``do this''; it says ``look here, attend
+to this tension, notice this affordance.'' It invites participants to
+see the world in terms of actionable differences.
+
+Reframing patterns this way brings PLACARD into closer dialogue with
+traditions such as:
+
+\begin{itemize}
+\tightlist
+\item
+  Phenomenology—emphasis on situated perception \cite{phenomenology-intro}
+\item
+  Participatory design—emphasis on co-articulation of problems \cite{participatory-design}
+\item
+ Grounded theory—emphasis on emergent categorization \cite{glasser}
+\end{itemize}
+
+It also prepares the ground for computational application. For
+artificial agents, much as for humans, sense-making begins with
+activation of relevance---the ability to determine what matters in a
+given context. In PLACARD, patterns serve as activation scaffolds:
+semi-formal cues that guide what should be noticed, named, or
+negotiated.  Each of its layers---A/B/C---corresponds to a distinct
+mode of learning.  Crucially, design patterns---or, indeed, any
+substitute schema that plays the same role---achieve the function of
+linking these modes, enabling transitions between experience, inquiry,
+and abstraction.
+
+We propose that patterns support at least three interdependent forms
+of learning:
+
+\begin{enumerate}
+\tightlist
+\item
+  Reflective Learning \cite{Boyd1983}: Patterns such as
+  {\scshape{Project Action Review}}{~and }{\scshape{Meta-Reflection
+      Loop}} support meaning-making after action. They help
+  participants surface experiences, identify what shifted, and
+  consider next steps. This mode is retrospective and grounded in
+  collective memory and sense-making.
+\item
+ Design Learning \cite{BurdickDesign}: Patterns like {\scshape{Borrow the
+     Situation}}~or {\scshape{Pattern the Play}}~create
+ scaffolds for reimagining problems, proposing alternatives, and
+ testing ideas.  Design learning is generative, situated in
+ ambiguity. Patterns here serve as framing devices that guide
+ creativity while constraining chaos.
+\item Model Learning: Patterns like {\scshape{Name the Frame}} and
+  {\scshape{Harvest Before You Close}} deploy abstraction---capturing
+  structural insights from activity. This form of learning supports
+  knowledge representation and the translation of local insights into
+  portable conceptual tools (e.g., \cite{ariyaratne1977a}).
+\end{enumerate}
+
+Patterns enable movement between these modes. For example:
+
+\begin{itemize}
+\tightlist
+\item
+  {A reflection may generate a design insight that prompts reframing.}
+\item
+  {A design intervention may require formal modeling to share or
+  extend.}
+\item
+  {A model may provoke a return to embodied or emotional grounding.}
+\end{itemize}
+
+
+\subsection{Summary of the evidence base from our in-person workshops}
+
+Table \ref{workshop-summary} summarizes the use of PoPII patterns in
+our workshops.  Further details are the Appendix.
+
+\begin{longtable}[]{@{}p{.3\textwidth}p{.5\textwidth}@{}}
+\toprule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+{Category}/{Patterns Used Well} & {Needs Refinement} \\[2mm]
+\textbf{A.}/DÉRIVE COMIX, DO YOUR RESEARCH, CONTEXT SETTING, PAR & \emoji{warning} Overrun — PAR provides a useful moment, when used; survey has a different feel.  Context-setting could be more cohesive: {\scshape Name the Frame}. Explore more creative, embodied PAR. \\[.2mm]
+%%
+\textbf{B.}/{GOING META, Facilitator roles, Pattern layering} & \emoji{warning} Mixed — time + onboarding were limits. Introduce meta-language tools earlier and more clearly. Test whether embodied cues help people get to worldview/myth. \\[.2mm]
+%%
+\textbf{C.}/{REINFUSE EXPERTISE, Creative ideation} & \emoji{warning} Implicit — patterns used, not made.  Stronger follow-through on actionable steps;
+{\scshape Harvest Before You Close}. Explicitly support pattern emergence from cards/music activities. \\
+\caption{Summary of patterns used in workshops and potential for improvement\label{workshop-summary}}
+\end{longtable}
+
+\section{Design Patterns for Pattern-Competent Agents}\label{sec:IV}
+
+The PLACARD methodology, as developed and refined across multiple
+participatory workshops, demonstrates the power of design patterns not
+only as tools for structuring action, but also as scaffolds for shared
+sense-making and reflection. Building on this foundation, we now
+consider a forward-looking design space: the development of
+pattern-competent artificial agents capable of engaging with design
+patterns as part of collaborative inquiry.  These agents would be
+expected to:
+
+\begin{itemize}
+\tightlist
+\item
+  {Recognize situations where a pattern might apply,}
+\item
+  {Use flexiformal representations of pattern logic,}
+\item
+  {Operate as a collective, i.e., to form multi-agent systems (MAS)}
+\item
+  {Participate in reflection loops that evolve the infrastructure
+  itself.}
+\end{itemize}
+
+\subsection{Recognizing Pattern-Relevant Situations}
+
+{The capacity to recognize situations where a pattern might apply lies
+at the heart of pattern competence. This is not a trivial matching task.
+It requires the ability to perceive and interpret contextual cues, to
+identify when a recurring structure or problem-type is emerging, and to
+discern salience: which aspects of a situation matter, and why. In
+participatory settings, such recognition is informed by experience,
+tacit knowledge, and social interaction. When developing artificial
+agents, the challenge is to develop mechanisms---symbolic, statistical,
+or hybrid---that allow }{for similarly situated recognition.}{~Here's an
+example showing how this might work for today's computer systems:}
+
+\begin{quote}
+\emph{Example:}~{A chatbot trained to handle customer service inquiries
+recognizes that a user is ``frustrated,'' even if the words don't match
+prior examples exactly---but the tone, pacing, and word choice are
+similar to previously tagged ``frustrated'' interactions.}
+
+\emph{Mechanism:}{~A statistical similarity model (e.g., embedding distance +
+fine-tuned classifier) matches this new situation to prior ones and
+adjusts the agent's response accordingly (e.g., a more empathetic tone or
+an escalation offer).}
+\end{quote}
+
+{Next-generation systems might deal with the same scenario in more
+flexible ways, for instance, not only on the basis of stimulus-response
+pairs, but more fluidly---for instance, understanding how it was that
+the customer became frustrated and initiating changes to the company
+policy accordingly. Early steps in this direction this could involve:}
+
+\begin{itemize}
+\tightlist
+\item
+  {Annotated corpora of dialogues tagged with }{design pattern
+  relevance}{;}
+\item
+  {Heuristic mappings between }{interactional markers}{~and PLACARD
+  patterns;}
+\item
+  {Embodied architectures}{~activated by patterns like }{Start with
+  Sense}{, which prime agents to engage interpretively.}
+\end{itemize}
+
+{This more meaningful form of `pattern recognition' requires readiness
+to see and make sense of structure, and to reframe experience in
+meaningful, actionable terms --- rather than to set data aside as a
+block, or (which is much the same) to cope with it in a purely reactive
+way.}
+
+\subsection{Flexiformal Representation of Pattern Logic}
+
+{To support agent-based reasoning, patterns must be expressed in a
+format that is both structured and open-ended. Drawing on the modified
+pattern structure used in PLACARD---\textbf{Context}{\ldots{} }\textbf{If}{~\ldots{} }{(\textbf{But})}{\ldots{}
+}\textbf{Then}{\ldots{}}\textbf{Because}{\ldots{}}---each clause can be understood as a layer of scoping and activation:}
+
+\smallskip
+\begin{description}
+\tightlist
+\item[Context:]{~a broad frame (task domain, discourse setting) that
+  activates relevant subsystems,}
+\item[If condition:]{~a salient event or state within that frame,}
+\item[But:]{~a tension or constraint that introduces conflict,}
+\item[Then:]{~a candidate action or communicative move.}
+\item[Because:]{~}While logic and reasoning have been core topics in
+  computer science from its outset \cite{sowa-logic}, further research
+  is needed to determine what sorts of reasoning---clearly combining
+  abductive, deductive, inductive, and analogical modes---and what
+  types of logic---classical, fuzzy, modal, monotonic,
+  non-monotonic---are used by humans to think about patterns.
+\end{description}
+
+For now, we refer to the overall approach as ``flexiformal''
+\cite{6481008}, because this leaves the door open to combining
+different formal systems in a suitably flexible fashion. Simply adding
+more patterns won't be enough to implement human-like reasoning in
+pattern-capable systems.  For one thing, the patterns need to be used
+to dynamically allocate cognitive resources.
+
+\subsection{Reflection Loops and the Evolution of Epistemic Infrastructure}
+
+To sustain meaningful pattern use, agents must also be able to
+reflect.  This means embedding meta-level structures like the PAR into
+the environment itself.  Reflection loops should support the capture
+of learning, the revision of pattern catalogues, and the emergence of
+new design insights.
+
+In future architectures, agents and humans alike can annotate, revise,
+and remix patterns, and participate in the shared cultivation of
+‘living’ knowledge systems.
+
+{Such environments would feature:}
+
+\begin{itemize}
+\tightlist
+\item
+  {Persistent memory of pattern use and transformation,}
+\item
+  {Shared surfaces for collaborative inspection and editing,}
+\item
+  {Rhythms of reflection built into interface and interaction design.}
+\end{itemize}
+
+In this context, patterns are not static heuristics. They are a
+generative infrastructure for collective intelligence.  We’ve
+previously imagined patterns being used within a “Discovery Machine”
+\cite{Tedeschi2024}.
+
+\subsection{Rethinking the Pattern Catalogue}
+
+The PLACARD A/B/C pattern catalogue was created with human
+participants in mind. It emphasizes social affordances, embodied
+prompts, and facilitation moves. While some of these translate readily
+into multi-agent contexts---e.g., “{\scshape {Meta-Reflection Loop}}”
+or “{\scshape {Pattern the Play}}”---others rely on human sensory
+input or informal framing strategies that are not directly available
+to AI systems.
+
+Thus, we propose a tripartite model of pattern types needed for
+pattern-competent agents, generalizing the layers we used previously.
+
+\subsubsection*{1. Interactional Patterns (generalizing the sensory layer, e.g., PAR)}
+
+{PAR structures collaborative reflection and coordination. Interactional
+patterns in general guide agents in playing roles, reflecting, and
+negotiating meaning in collaborative settings---essentially the
+micro-level behaviors that mirror PAR's inquiry loop. }{Examples
+include:}
+
+\begin{itemize}
+\tightlist
+\item[]
+  {\scshape{Role Reveal}}{: Adopt explicit roles in multi-agent dialogue.}
+\item[]
+  {\scshape{Meta-Reflection Loop}}{: Periodically engage in structured
+  self-review.}
+\item[]
+  {\scshape{Timebox the Core}}{: Manage resource allocation and attention
+  windows.}
+\end{itemize}
+
+These patterns require some translation to make it understandable to
+the machine, e.g., encoding roles as functions in MAS architectures or
+structuring turn-taking rules.
+
+\subsubsection*{2. Cognitive Patterns (expanding upon the existing cognitive layer,
+e.g., CLA)}
+
+CLA unpacks multiple layers of meaning---litany, system, worldview,
+myth. These cognitive patterns help agents reason across contexts and
+detect tensions, embedding depth and nuance in internal
+reasoning. They are interpretive structures, supporting internal
+reasoning and pattern use:
+
+\begin{itemize}
+\tightlist
+\item[]
+  {\scshape{Pattern Activation}}{: Given a context and goal, retrieve applicable
+  patterns.}
+\item[]
+  {\scshape{Tension Detection}}{: Use heuristics to identify contradictions or
+  bottlenecks.}
+\item[]
+  {\scshape{Candidate Move Generation}}{: Translate pattern suggestions into
+  operational plans.}
+\end{itemize}
+
+\subsubsection*{3. Infrastructural Patterns (generalizing the motor layer, e.g., DPL)}
+
+DPL captures reusable structures for action. These infrastructural
+patterns define persistent templates and system-wide protocols that
+support reuse, feedback, and evolution of the broader system
+design. For example these are 3 meta-patterns that could enable
+engagement with patterns:
+
+\begin{itemize}
+\tightlist
+\item[]
+  {\scshape{Shared Memory Architecture}}{: Persistent storage of pattern use and
+  modification. Putting patterns where people can get them, like the
+  catalogue, akin to the SCRAPBOOK from Patterns of Peeragogy \cite{10.5555/3124497.3124531}}
+\item[]
+  {\scshape{Feedback Rhythms}}{: Protocols for scheduling reflection
+    and pattern revision.}
+\item[]
+  {\scshape {Pattern Diffusion}}{: Mechanisms for propagating new or
+    adapted patterns across agent collectives.}
+\end{itemize}
+
+They govern the architecture of the agent system much like DPL governs
+the architecture of human practice.
+
+\subsection{Desiging Environments for pattern-competent MAS}
+
+In addition to broader contextual information, relevant multi-agent
+system (MAS) environments would include the social and cognitive
+dynamics of inquiry: coordination, negotiation, reflection.  Such
+environments have the capacity to support multiple, interacting
+Baldwin effects---individual learning loops that influence each other
+over time as the agents and their interactions evolve \cite{Redko}.
+This distributed adaptation mirrors cultural evolution: strategies
+become shared, revised, and recontextualized.
+
+{In such settings, agents may:}
+
+\begin{itemize}
+\tightlist
+\item {Observe and imitate others’ implicit or explicit pattern applications,}
+\item {Adapt their own strategies through contestation or alignment,}
+\item {Participate in the co-creation of new patterns through dialogue and feedback.}
+\end{itemize}
+
+Rather than simply evaluating \emph{success} in terms of task
+completion or efficiency, MAS environments invite questions about
+“how” solutions are created.
+
+This reflection constitutes suggests a key amendment to PLACARD.
+Whereas PLACARD was described in classic psychological terms
+\cite{Hilgard1980} — which are also taken over by roboticists
+\cite{cassimatis2004integrating} — it does not specifically talk about
+the environment in which the agents it considers would be situated.
+In robot terms, for example, we would expect an undersea robot and a
+Mars rover to have very different functionality, even if they have the
+same theoretical underpinning.  This way of thinking suggests that the
+PLACARD pattern language should be extended to be an “A/B/C/D
+catalogue”, where the fourth section contains \emph{environmental} or
+\emph{developmental} patterns.  With this in mind, in addition to
+further detail on the candidate patterns for pattern-competent agents
+— as outlined above — the appendix also includes some patterns that
+would guide the design of their working environments.  
+
+\section{Virtual Multi-Agent Workshops in the Spirit of PLACARD}\label{sec:V}
+
+To explore the idea of pattern-competent agents developed Section
+\ref{sec:IV}, we conducted a series of virtual workshops using
+fictional agents within ChatGPT. ~Using the PLACARD method, those
+agents rotated through breakout sessions, engaged in pattern-guided
+inquiry, and made use of a curated and emergent pattern catalogue.  It
+is worth emphasizing that the workshops were computer-aided design
+fictions (we have previously explored this way of working “by hand”
+\cite{fictional-peeragogical}, and we’re aware that fictional works
+can have unexpected real-world ramifications, e.g.,
+\cite{enwiki:1290575156}).  ChatGPT can simulate plausible dialogues,
+behaviors, and reflective loops based on design patterns, but it
+cannot build and run custom agent architectures.  All `agents' were
+textual personas that were simulated by one model.  The agents were
+plausibly able to discuss the design patterns and employ them in
+light-weight design exercises; however, the limitations are just as
+interesting as the successes.
+
+\section{Discussion}\label{sec:discussion}
+
+\subsection{Limitations and Lessons Learned}
+
+While the outcomes of our PLACARD-based workshops (both in-person and
+simulated) were promising, several limitations emerged that highlight
+areas for refinement---both in the method itself and in our
+implementation of it.  Generally, these limitations correspond to
+lessons that could be applied in future work.
+
+\begin{longtable}[]{@{}p{.45\textwidth}p{.45\textwidth}@{}}
+\toprule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+{Limitation} & {Lessons Learned} \\ \hline
+%%%%%%%
+{Cognitive demands of CLA}{: The abstraction and depth of Causal Layered
+Analysis (CLA) often overwhelmed participants, especially when
+scaffolding was limited.}
+%%%
+& {Provide lightweight onboarding tools---such
+as mini-patterns, worked examples, or scenario walkthroughs---to ease
+entry into layered analysis.} \\ \hline
+%%%%%%%
+{Short workshop windows (60--90 mins)}{: Limited time forced trade-offs,
+with later phases (e.g., PAR) often rushed or skipped.}
+%%%
+& {Recognize
+{\scshape{Timebox the Core}} as a necessary pattern---but pair it with mechanisms
+for asynchronous reflection or follow-up synthesis.} \\ \hline
+%%%%%%%
+{Challenges in hybrid facilitation}{: Remote facilitators struggled to
+  engage with group energy and activities; in-person facilitators were
+  overburdened.}
+%%%
+& {Adopt and refine the pattern } {\scshape{Have Multiple Leaders
+    Onsite}}{, and explore interactional choreography to balance
+  facilitation across modalities.} \\ \hline
+%%%%%%%
+{Sequential framing constrained emergent inquiry}{: Participants
+  sometimes forced their intuitive insights into retroactive
+  justifications.}
+%%%
+& {Allow more modular, remixable process designs. Embed
+``{\scshape{Improvise to Test}}'' and ``{\scshape{Pattern the Play}}'' to legitimize non-linear
+sense-making.} \\ \hline
+%%%%%%%
+{Deliberative bias limits affective and tacit knowledge}{: Structured
+methods sometimes crowded out emotional or disruptive forms of insight.}
+%%%
+& {Integrate methods or prompts that scaffold expressive, intuitive, and
+affective contributions---e.g., through metaphor, narrative, or
+art-based reflection.} \\ \hline
+%%%%%%%
+{Risk of premature formalism}{: Design patterns encouraged
+generalization at the expense of context specificity.} 
+%%%
+& {Emphasize
+pattern annotations and situated stories. Use pattern revision cycles to
+adapt and diversify rather than standardize.} \\ \hline
+%%%%%%%
+{Logistical overhead of documentation}{: Without dedicated roles or
+tooling, PLACARD's emphasis on shared surfaces was burdensome.} 
+%%%
+&
+{Support tool development and role formalization (e.g., for
+pattern capture). Design light-touch alternatives for low-resource
+contexts.} \\ \hline
+%%%%%%%
+{Simulated agents were archetypal, not adaptive}{: The multi-agent
+models lacked real-time learning or memory; they played out scripted
+reasoning paths.} 
+%%%
+& {Treat the current set of simulations as }{design
+probes}{~rather than predictive models. Use them to explore design space
+and pattern viability, not behavioral realism.} \\ \hline
+%%%%%%%
+{Idealized dialogues lacked messiness}{: No true misalignment, conflict,
+or unresolved disagreement appeared in the simulations.} 
+%%%
+& {Future work
+should inject structured friction---conflicting goals, values, or
+timing---to better stress-test interactional patterns.} \\ \hline
+%%%%%%%
+{No persistent identity or memory across sessions}{: Agents did not
+evolve across workshops, limiting insight into long-term learning.} 
+%%%
+& {Incorporate persistent memory structures and episodic traces to
+    study cumulative reflection, pattern evolution, and
+    institutionalization.} \\ \hline
+%%%%%%%
+ {Language model constraints
+  shaped outcomes}{: Agent behaviors emerged from a coherence-biased
+  generative system, not open-ended cognition.}
+%%%
+& {Simulations must be interpreted with epistemic humility. Their role
+    is speculative, not definitive---ideal for surfacing design
+    tensions, not modeling reality.} \\ \hline
+
+\end{longtable}
+
+%% {PLACARD has emerged as a versatile methodology for structuring
+%% collaborative inquiry across a wide range of contexts---from
+%% international workshops to simulated multi-agent environments. It has a
+%% distinctive rhythm combining reflection (PAR), layered analysis (CLA),
+%% and pattern-based design (DPL), and applying these methods recursively
+%% to think about what they have to offer. ~We've been able to scaffold
+%% sense-making in complex situations and the co-creation of reusable
+%% knowledge. This scaffolding has several }{limitations}{, as we've
+%% discussed above. Notwithstanding the need for caveats surrounding its
+%% practical use within these spheres, exploring PLACARD across two
+%% distinct domains of inquiry points to the following theoretical
+%% insights, which could serve as the basis for deeper patterns.}
+
+%% {Both humans and MAS struggle with reasoning across levels (e.g.,
+%% surface problems, systemic causes, deep worldviews). For MAS, this calls
+%% for multi-level inference; for humans, potentially the need for better
+%% scaffolds for our emotional and embodied intelligence. }{For both humans
+%% and MAS}{, the ability to }{recognize}{, }{adapt}{, and
+%% }{contextualize}{~patterns is key. Premature formalism, whether human,
+%% social or algorithmic, leads to brittle insight. ~Instead, we need a
+%% sufficiently flexible understanding of how patterns work together ---
+%% `patterns of patterns'. Both humans and agents need space to improvise,
+%% test intuitions, and evolve understanding. Sequential workflows and
+%% tight feedback loops tend to limit this capability in both settings.
+%% Whether embodied (humans) or encoded (MAS), knowledge co-creation
+%% benefits from persistent memory, reflection cadence, and role clarity.
+%% Pattern sense-making isn't purely rational. Humans bring culture, story,
+%% and affect. MAS agents will need new forms of semiotic grounding to
+%% participate meaningfully.}
+
+\subsection{Related Work}
+Looking forward, the next phase of PLACARD's evolution could be
+a~platform for cultivating design-pattern-capable agents, communities,
+and learning environments. PLACARD should be understood not as a
+finished method but as a generative infrastructure: a living commons
+of epistemic tools, shaped by their user communities. ~These insights
+can be combined with Elinor Ostrom's Design Principles for Governing a
+Commons to serve as a lens for evaluating and extending PLACARD,
+beyond the ``agent'' level to the ``environment'' level. On this
+point, we can point to some work: \citet{10.1145/2382570.2382575}
+explore how institutions can self-organize by formalizing
+socio-economic principles that guide agent behavior within Multi-Agent
+Systems (MAS).  Drawing inspiration from Elinor Ostrom's work, they
+propose an axiomatic design approach~that captures principles such as
+proportionality, accountability, and collective choice in a
+machine-interpretable form. Where Pitt et al. emphasize axioms as
+foundational building blocks, our PLACARD-based approach leverages
+design patterns as intermediate representations that bridge human
+practice and machine reasoning. ~In a more recent paper,
+\citet{10.1162/isal_a_00800} present a methodological framework for
+integrating power sensitivity into the design of cyber-physical
+systems by drawing on second- and third-order cybernetics. They
+propose pattern-based design methods that foreground the observer's
+position, across different layes of embeddedness---with beneficial
+applications of technology ranging from ``Saves Physical and Cognitive
+Resources'' to ``Solves Complex Problems'' to ``Deals with Social
+Constructions'' to ``Mitigates Existential Crises''.
+
+\section{Conclusion}\label{sec:conclusion}
+
+Looking back over the limitations and lessons learned, it’s worth
+drawing out one top-level remork.  ChatGPT is adept at text
+processing, and we have put it to use significantly in our work on
+this paper.  It was able to generate and discuss design patterns that
+would describe pattern-capable agents.  However, it was not able to
+actually use these patterns to build and run pattern-capable agents.
+We hope others will be interested in using LLMs to work with design
+patterns—but we also hope that such usage will serve as a landmark
+rather than a destination.
+
+Including a computational use case within the paper suggested a key
+amendment to PLACARD: adding a fourth environment dimension to the
+pattern catalogue . Human-facing and Human-Computer Interface-facing
+patterns should eventually be extended similarly.
+
+For now, to close this paper, we put forward the following CLA, which
+brings together the ``human'' and ``AI'' use cases and outlines a
+trajectory of future work.  In the context of this paper, the CLA
+layers can aligned with the expanded view of PLACARD that we have
+discussed—encompassing \emph{sensory} (litany), \emph{cognitive}
+(system), \emph{motor} (worldview), and \emph{environment} (myth)
+dimensions.
+
+% ✴️
+\subsection*{\emoji{eight-pointed-star} Litany: Known Problems and Existing Solutions}
+
+These are the most visible and widely discussed elements of current AI
+discourse: the promise and perils of large language models (LLMs) and
+the early success of LLM-associated code-writing agents.
+
+\paragraph{Language Model Substrate}
+
+These foundational models (e.g., GPT-4) provide generative
+capabilities, statistical reasoning, and natural language interfaces.
+However, they lack structure, grounding, and memory.
+
+\paragraph{Code-Writing \& Execution Agents}
+
+Many simple agents today (e.g., auto-scripting agents, plugin
+interfaces) use LLMs to write and execute code or perform isolated
+tasks. These are effective but brittle, with limited reasoning
+transparency or contextual learning.
+
+% ⚙️
+\subsection*{\emoji{gear} Systemic Layer: Epistemic Infrastructure via Patterns}
+
+To move beyond isolated capabilities, we introduce pattern-based
+epistemic scaffolding~for multi-agent collaboration. This makes the
+system reflexive, composable, and governed by design principles.
+
+\paragraph{Pattern-Aware Dialogue Agents}
+
+Agents trained to recognize and apply design patterns (from the
+PLACARD catalogue) in their interactions. They exhibit situated
+competence~and can engage in structured reasoning, scenario
+exploration, and inquiry.
+
+\paragraph{Pattern-Reflective Meta-Agents}
+
+These agents do not just use patterns---they also monitor, revise, and
+propose new ones, participating in iterative design and reflective
+cycles. They enable epistemic learning~at the system level,
+coordinating multi-agent behavior across contexts.
+
+% 🌍
+\subsection*{\emoji{globe-showing-asia-australia} Worldview Layer: Institutional Design through MAS}
+
+Inspired by Elinor Ostrom's principles for governing commons, we treat
+the MAS as a social-technological institution~that evolves through
+interaction.
+
+\paragraph{Multi-Agent Institution Designers}
+
+This layer operationalizes developmental patterns~that support
+reflexivity, feedback, nested structures, and shared norm evolution
+across MAS environments. These agents co-design systems of engagement,
+monitor norm congruence, and resolve governance disputes---just as
+human institutions do. They instantiate a worldview in which
+intelligence is not just personal or cognitive, but systemic and
+collective. ~
+
+% 🕊
+\subsection*{\emoji{dove} Myth Layer: Human Institutions as Living Models}
+
+Beyond technical systems, our proposal invites reflection on how
+real-world institutions---academic, policy, scientific---can
+themselves become more adaptive, transparent, and pattern-literate
+through interaction with these tools.
+
+\paragraph{Real-World Interface}
+
+This is the last layer because it is grounded in recursive reform.
+Humans build tools to simulate and improve human institutions---not to
+replace them, but to co-evolve.  This layer anchors the entire
+architecture in civic legitimacy, ethical accountability, and
+reflective participation. Our claim is not merely that we can control
+the system, but that we can use it to help re-pattern the world~we
+inhabit.  By working with agents that are both pattern- and
+institution-capable, we gain assurances not only about avoiding
+``run-away AI'' scenarios, but about avoiding other tragedies of the
+commons.
+
+\section{Acknowledgements}\label{sec:ack}
+We wish to acknowledge discussions with Cris Viseu around our 2025
+EuroPLoP workshop, which continues the line of work described in the paper.
+
+\section*{APPENDIX}
+
+This appendix supports the analysis in the paper. It contains:
+
+\begin{enumerate}
+\item A pattern-based analysis of the 2024 workshops, using the
+  patterns from PoPII, and exploring the extent to which these
+  patterns were used (implicitly or explicitly).  A summary appears in
+  Table \ref{workshop-summary}.
+\item Potential new PLACARD patterns, mentioned in the paper.
+\item Candidate Patterns for Pattern-competent agents.
+\item Candidate Patterns for Pattern-competent Agent Environments.
+\end{enumerate}
+
+\subsection*{Pattern analysis of the 2024 workshops}
+
+One immediate result was the identification of of a proto-pattern,
+“Have Multiple Leaders Onsite,” addressing challenges in
+hybrid-facilitated events:
+
+\begin{quote}
+Context: Interactive conference workshops with both in-person and
+remote participants.
+
+Problem: A single onsite facilitator struggles to manage breakout
+groups, technology, and overall flow, leading to gaps in support and
+reduced engagement (especially for remote attendees).
+
+Solution: Deploy multiple co-facilitators physically onsite to
+coordinate activities, handle logistics, and engage with
+participants. Onsite leaders can divide roles (e.g., one per breakout
+table or task), ensuring better guidance and responsiveness, while
+remote facilitators focus on online participants.
+\end{quote}
+
+% “how”
+
+\medskip
+
+\subsubsection*{A.~Identifying Themes}
+
+\paragraph*{DÉRIVE COMIX}
+
+\noindent \textbf{Application:} Participants used cards (object, value, body/territory, situation) as interpretive prompts to spark imagination—mirroring  urban dérive in a conceptual sense.
+
+\noindent \textbf{Observation:} The card game facilitated divergent thinking akin to exploring unfamiliar terrain.
+
+\paragraph*{CONTEXT SETTING}
+
+\noindent \textbf{Application:} Early slides and explanations introduced key concepts (e.g. design patterns, CLA).
+
+\noindent \textbf{Opportunity:} Participant feedback highlighted a need for clearer upfront orientation. Improved alignment with this pattern could increase accessibility.
+
+\paragraph*{DO YOUR RESEARCH}
+
+\noindent \textbf{Application:} Past workshop experiences were integrated into the design; earlier uses of CLA and PAR informed this session.
+
+\noindent Example: Reference to Anticipation 2019 and prior events illustrates “pre-research” informing present design.
+
+\subsubsection*{B.~Organizing Structure}
+
+\paragraph*{GOING META}
+
+\noindent \textbf{Application:} The project itself exemplifies recursive methodology—using PLACARD to refine PLACARD.
+
+\noindent \textbf{Highlight:} Participants were prompted to reflect on and imagine both the methodology and the subject (AI futures).
+
+\paragraph*{PATTERN LANGUAGE COMPONENTS}
+
+\noindent \textbf{Partial:} The workshop design showcases layering (CLA + DPL + PAR) but participants struggled to parse the conceptual load quickly.
+
+\noindent \textbf{Recommendation:} Use lighter keywords (HOWEVER, BECAUSE, SPECIFICALLY) to scaffold understanding incrementally.
+
+\paragraph*{FACILITATOR ROLES / FUNCTIONAL ROLES}
+
+\noindent \textbf{Application:} Hybrid facilitation with distinct roles (onsite leader, remote supporters) models distributed facilitation.
+
+\noindent \textbf{Opportunity:} Could be made more explicit—e.g., naming “Linker,” “Reflector,” or “Wrinkler” roles to participants.
+
+\subsubsection*{C.~Making it Actionable}
+
+\paragraph*{THE FUTURE BEGINS NOW}
+
+\noindent \textbf{Application:} The card game generated imagined futures that participants shared and developed.
+
+\noindent \textbf{Gap:} While creative ideas emerged, follow-through actions or small-scale pilots were not described. An actionable step could have enhanced continuity.
+
+\paragraph*{PROJECT ACTION REVIEW (PAR)}
+
+\noindent \textbf{Application:} Strong use of the PAR pattern at the end of the session to reflect, share learnings, and gather insights.
+
+\noindent \textbf{Insight:} Participants gained confidence and intended to reuse techniques—an indicator of success.
+
+\paragraph*{REINFUSE EXPERTISE}
+
+\noindent \textbf{Application:} Participants brought diverse professional and cultural perspectives. Expertise was implicitly reintegrated via the shared reflection on AI futures and governance.
+
+\noindent \textbf{Suggestion:} A more explicit arc—temporarily setting aside expertise to foster common ground—could enrich this pattern’s application.
+
+\subsection*{Potential new PLACARD patterns}
+
+\subsubsection*{A.~IDENTIFYING THEMES}
+
+\paragraph*{{\scshape Start with Sense}}
+
+\noindent\textbf{Context:} You are facilitating a workshop intended to generate new ideas or shared understanding.\\
+\textbf{If:} You want to activate creativity and presence BUT participants arrive cold or disconnected from each other and the topic,\\
+\textbf{Then:} Begin with a sensory or embodied activity (e.g. rhythm, image-based storytelling, gesture) that creates shared energy and primes pattern recognition.\\
+\textbf{Evidence base from related literature:} Techniques such as "story circles" (participatory arts), embodied methods in design ethnography, and rhythm-based facilitation in music education all affirm the value of grounding group attention through shared sensory engagement. These strategies mirror the function of PAR alternatives that aim to surface and align affective states as a precondition for inquiry.
+
+\paragraph*{{\scshape Name the Frame}}
+
+\noindent\textbf{Context:} You are introducing participants to a method that is unfamiliar or complex (like PLACARD).\\
+\textbf{If:} You want them to participate actively BUT the framing is opaque or abstract,\\
+\textbf{Then:} Explicitly describe the method, its purpose, and how today’s session fits into the broader picture.\\
+\textbf{Evidence base from related literature:} This mirrors practices from facilitation toolkits like Liberating Structures (e.g. "Purpose-to-Practice") and the role of explicit framing in adult learning theory, where naming the structure of engagement is key to building learner autonomy and motivation.
+
+\paragraph*{{\scshape Borrow the Situation}}
+
+\noindent \textbf{Context:} You are using prompts (cards, challenges, scenarios) to guide group inquiry.\\
+\textbf{If:} You offer a situation that feels flat or generic BUT participants want something meaningful to anchor their play,\\
+\textbf{Then:} Invite participants to select, remix, or define their own situation to explore.\\
+\textbf{Evidence base from related literature:} User-centered design emphasizes co-defining the design challenge. Futures methods such as the "Futures Triangle" and participatory foresight often encourage the co-creation of situational prompts to enhance contextual fit and participant investment.
+
+\subsubsection*{B.~Organizing Structure}
+~\newline
+
+\paragraph*{{\scshape Pattern Priming}}
+
+\noindent \textbf{Context:} You are working with participants who may be new to design patterns.\\
+\textbf{If:} You want people to identify and name patterns BUT the idea of a "pattern" is still abstract,\\
+\textbf{Then:} Seed early examples or light prompts ("What did you do just now that worked?") to build fluency.\\
+\textbf{Evidence base from related literature:} This aligns with double-loop learning (Argyris and Schön), where patterns of thought and action are surfaced through inquiry. It's also reinforced in cognitive apprenticeship, which models strategies before expecting learners to apply them.
+
+\paragraph*{{\scshape Timebox the Core}}
+
+\noindent \textbf{Context:} You have a limited workshop time (e.g. 60–120 minutes).\\
+\textbf{If:} You want to run through all three PLACARD components BUT you risk running out of time or overwhelming participants,\\
+\textbf{Then:} Identify and focus on a minimal viable loop (e.g. Situation → Scenario → Reflection) and simplify supporting activities.\\
+\textbf{Evidence base from related literature:} Agile retrospectives and timeboxing practices in design sprints demonstrate how temporal constraints support clarity, focus, and iterative learning without requiring completion of all intended steps.
+
+\paragraph*{{\scshape Role Reveal}}
+
+\noindent \textbf{Context:} You’re running a hybrid or multi-facilitator session.\\
+\textbf{If:} Facilitation roles are unclear BUT smooth coordination is needed to support the flow,\\
+\textbf{Then:} Make the roles explicit (e.g. Linker, Reflector, Tech Host) and let participants know who does what.\\
+\textbf{Evidence base from related literature:} In distributed team management and collaborative learning, named roles (e.g. Scrum Master, Scribe) are shown to enhance group performance and task clarity. This also connects to facilitation protocols in online and hybrid pedagogies.
+
+\subsubsection*{C.~Making it Actionable}
+
+\paragraph*{{\scshape Harvest Before You Close}}
+
+\noindent \textbf{Context:} You’re reaching the end of an engaging session.\\
+\textbf{If:} Participants have surfaced great insights BUT you wait until the end to name patterns,\\
+\textbf{Then:} Add a short mid-session or pre-wrap-up step to ask: “What’s something you did or saw that could be reused elsewhere?”\\
+\textbf{Evidence base from related literature:} After Action Reviews (military, management), Feedback Wheels (relationship therapy), and Agile retrospectives all highlight the value of capturing learning as it emerges—not merely as a concluding gesture.
+
+\paragraph*{{\scshape Pattern the Play}}
+
+\noindent \textbf{Context:} You’re using creative methods (cards, music, improv) as part of your workshop.\\
+\textbf{If:} These are treated as energizers or tangents BUT you want them to inform the core inquiry,\\
+\textbf{Then:} Treat playful activities as valid epistemic inputs. Ask: “what design moves or values emerged here?”\\
+\textbf{Evidence base from related literature:} Design ethnography, improv for innovation, and serious games scholarship all provide grounding for the idea that nonverbal, embodied, and affective practices contribute directly to sense-making and design thinking.
+
+\paragraph*{{\scshape Meta-Reflection Loop}}
+
+\noindent \textbf{Context:} You’re using a structured method like PLACARD itself.\\
+\textbf{If:} You reflect only on the topic (e.g. music and AI) BUT neglect the method,\\
+\textbf{Then:} Add a closing question or section to reflect on the method’s affordances, limits, and what to revise.\\
+\textbf{Evidence base from related literature:} This is consistent with reflective practice (Schön), meta-evaluation in participatory action research, and “method feedback” sessions used in critical design studies. It also draws from Buddhist and contemplative traditions of meta-awareness and iterative refinement (e.g. Dependent Origination).
+
+\subsection*{Candidate Patterns for Pattern-competent agents}
+
+\paragraph*{{\scshape Pattern Activation}}
+
+\noindent \textbf{Context:} An agent receives a new task or encounters a novel situation.\\
+ \textbf{If:} The system has access to a pattern catalogue relevant to the domain,\\
+ \textbf{But:} Not all patterns are applicable or salient,\\
+ \textbf{Then:} Retrieve candidate patterns using contextual filters (e.g., task type, known tensions) to prime downstream reasoning.
+
+ \paragraph*{{\scshape Tension Detection}}
+
+\noindent \textbf{Context:} An agent is assessing a situation, proposal, or evolving dialogue.\\
+ \textbf{If:} Indicators suggest divergence, contradiction, or friction,\\
+ \textbf{But:} These tensions remain unmarked and unresolved,\\
+ \textbf{Then:} Flag the tension explicitly and propose an exploratory frame (e.g., apply CLA or consult conflict-resolution patterns) to surface underlying issues.
+
+ \paragraph*{{\scshape Candidate Move Generation}}
+
+\noindent \textbf{Context:} An agent has identified a situation in which one or more patterns apply.\\
+ \textbf{If:} The context supports multiple interpretations or strategies,\\
+ \textbf{But:} There’s uncertainty about how to instantiate the pattern concretely,\\
+ \textbf{Then:} Generate a set of plausible candidate actions based on pattern logic, rank or cluster them using salience heuristics, and propose next steps.
+
+ \paragraph*{{\scshape Shared Memory Architecture}}
+
+\noindent \textbf{Context:} Multiple agents operate in a dynamic environment over time.\\
+ \textbf{If:} Patterns are used, modified, or co-created through interaction,\\
+ \textbf{But:} There is no mechanism for recording or retrieving this history,\\
+ \textbf{Then:} Store pattern instances, adaptations, and usage contexts in a persistent shared memory, enabling learning and reuse.
+
+ \paragraph*{{\scshape Feedback Rhythms}}
+
+\noindent \textbf{Context:} A system includes agents collaborating over long timeframes or iterations.\\
+ \textbf{If:} Patterns and strategies become outdated or misaligned,\\
+ \textbf{But:} There is no regular cadence for reviewing or revising them,\\
+ \textbf{Then:} Schedule periodic feedback sessions or checkpoints where agents reflect on outcomes, revise patterns, and tune system-wide epistemic strategies.
+
+\paragraph*{{\scshape Pattern Diffusion}}
+
+\noindent \textbf{Context:} A new pattern proves effective within a local agent subgroup.\\
+ \textbf{If:} Other agents face similar challenges or tasks,\\
+ \textbf{But:} There’s no pathway for knowledge transfer or generalization,\\
+ \textbf{Then:} Broadcast the pattern across the system with metadata (e.g., domain, confidence score, context) to allow others to trial, adapt, or contest it.
+
+\subsection*{Candidate Patterns for Pattern-competent Agent Environments}
+
+\paragraph*{{\scshape Institutional Drift}}
+\noindent \textbf{Context:} Repeated MAS sessions produce cumulative outcomes.
+\textbf{If:} Pattern use becomes routinized,
+\textbf{But:} Changing contexts or challenges are not reflected in pattern updates,
+\textbf{Then:} Trigger a meta-level PAR to recontextualize relevance.
+\textbf{Because:} Institutions require periodic re-grounding to avoid ossification.
+
+\paragraph*{{\scshape Norm Seed}}
+\noindent \textbf{Context:}  A new MAS instance is initiated.
+\textbf{If:} There are no agreed-upon norms,
+\textbf{But:} Some agents possess relevant precedents or analogues,
+\textbf{Then:} Seed group interaction with foundational mini-patterns.
+\textbf{Because:} Initial framing influences long-term behavior and coherence.
+
+\paragraph*{{\scshape Boundary Oscillation}}
+\noindent \textbf{Context:}  MAS agents engage across different domains or networks.
+\textbf{If:} Norms, roles, or goals diverge significantly,
+\textbf{But:} Agents have memory of shared pattern lineage,
+\textbf{Then:} Engage a boundary negotiation pattern to recalibrate alignment.
+\textbf{Because:} Distributed epistemic systems must periodically reconverge.
+
+\paragraph*{{\scshape Reflection Scaffold Upgrade}}
+\noindent \textbf{Context:}  Existing reflection protocols underperform in capturing learning.
+\textbf{If:} Meta-cognition fails to yield new patterns,
+\textbf{But:} System logs or feedback signals suggest deeper insight is possible,
+\textbf{Then:} Introduce upgraded reflection scaffolds (e.g., layered PAR, narrative loops).
+\textbf{Because:} Developmental learning depends on scaffolding that evolves with system maturity
+
+
+
+\renewcommand\bibname{References}
+\renewcommand\refname{References}
+
+\bibliographystyle{ACM-Reference-Format-Journals}
+\bibliography{./main.bib}
+
+
+\end{document}
